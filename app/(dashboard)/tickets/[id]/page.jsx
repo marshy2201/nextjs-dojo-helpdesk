@@ -1,5 +1,15 @@
 import { notFound } from 'next/navigation'
 
+export async function generateMetadata({ params }) {
+  const res = await fetch(`http://localhost:4000/tickets/${params.id}`);
+
+  const ticket = await res.json();
+
+  return {
+    title: `Dojo Helpdesk | ${ticket.title}`
+  }
+}
+
 export async function generateStaticParams() {
   const res = await fetch('http://localhost:4000/tickets');
 
